@@ -1,0 +1,38 @@
+//게임 창화면 너비 800 높이 600 이상 창화면
+
+#include <iostream>
+using namespace std;
+
+class GameWindow
+{
+private:
+  int width;
+  int height;
+
+public:
+  GameWindow() : width(800), height(600) {}
+  GameWindow(const int w, const int h)
+  {
+    ResizeWindow(w, h);
+  }
+  int GetWidth() const { return width; }
+  int GetHeight() const { return height; }
+  void ResizeWindow(const int w, const int h)
+  {
+    if (w < 800)
+      width = 800;
+    else
+      width = w;
+    if (h < 600)
+      height = 600;
+    else
+      height = h;
+  }
+};
+
+int main()
+{
+  GameWindow mainwindow;
+  mainwindow.ResizeWindow(1336, 768);
+  cout << mainwindow.GetWidth() << " " << mainwindow.GetHeight() << endl;
+}
