@@ -1,0 +1,74 @@
+// 회사 직원 리스트
+#include <iostream>
+using namespace std;
+namespace COMP_POS
+{
+  enum
+  {
+    CLERK,
+    SENIOR,
+    ASSIST,
+    MANAGER
+  };
+  void ShowPositionInfo(int pos)
+  {
+    switch (pos)
+    {
+    case CLERK:
+      cout << "사원" << endl;
+      break;
+    case SENIOR:
+      cout << "주임" << endl;
+      break;
+    case ASSIST:
+      cout << "대리" << endl;
+      break;
+    case MANAGER:
+      cout << "과장" << endl;
+      break;
+    }
+  }
+}
+
+class NameCard
+{
+private:
+  string *name;
+  string *company;
+  string *phone;
+  int pos;
+
+public:
+  NameCard(char *n, char *c, char *p, int pos) : pos(pos)
+  {
+    name = new char[strlen(n) + 1];
+    company = new char[strlen(c) + 1];
+    phone = new char[strlen(p) + 1];
+    strcpy(name, n);
+    strcpy(company, c);
+    strcpy(phone, p);
+  }
+  void ShowNameCardInfo() const
+  {
+    cout << "이름 : " << name << endl;
+    cout << "회사 : " << company << endl;
+    cout << "잔화번호 : " << phone << endl;
+    cout << "직급 : ";
+    COMP_POS::ShowPositionInfo(pos);
+    cout << endl;
+  }
+  ~NameCard()
+  {
+    delete[] name;
+    delete[] company;
+    delete[] phone;
+  }
+};
+
+int main()
+{
+  NameCard manClerk("Lee", "ABC", "010-2121-1313", COMP_POS::CLERK);
+  NameCard manSENIOR("lim", "ACAC", "010-1212-4343", COMP_POS::SENIOR);
+  manClerk.ShowNameCardInfo();
+  manSENIOR.ShowNameCardInfo();
+}
