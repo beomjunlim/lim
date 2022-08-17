@@ -48,6 +48,15 @@ public:
     strcpy(company, c);
     strcpy(phone, p);
   }
+  NameCard(const NameCard &copy) : pos(copy.pos)
+  {
+    name = new char(strlen(copy.name) + 1);
+    company = new char[strlen(copy.company) + 1];
+    phone = new char[strlen(copy.phone) + 1];
+    strcpy(name, copy.name);
+    strcpy(company, copy.company);
+    strcpy(phone, copy.phone);
+  }
   void ShowNameCardInfo() const
   {
     cout << "이름 : " << name << endl;
@@ -68,7 +77,9 @@ public:
 int main()
 {
   NameCard manClerk("Lee", "ABC", "010-2121-1313", COMP_POS::CLERK);
+  NameCard copy1 = manClerk;
   NameCard manSENIOR("lim", "ACAC", "010-1212-4343", COMP_POS::SENIOR);
-  manClerk.ShowNameCardInfo();
-  manSENIOR.ShowNameCardInfo();
+  NameCard copy2 = manSENIOR;
+  copy1.ShowNameCardInfo();
+  copy2.ShowNameCardInfo();
 }
