@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+
+
+int factorial(int a) {
+	static int sum = 0;
+	if (a == 0) {
+		cout << sum << endl;
+		return 0;
+	}
+	else {
+		sum += a;
+		a--;
+		return factorial(a);
+	}
+}
+int main() {
+	int a;
+	cin >> a; 
+	factorial(a);
+	
+}
