@@ -1,0 +1,20 @@
+// n부터 1까지 역순으로 출력
+#include<iostream>
+using namespace std;
+
+
+int factorial(int n) {
+	if (n == 1) {
+		cout << n << endl;
+		return 0;
+	}
+	else
+		cout << n << endl;
+	n--;
+	return factorial(n);
+}
+int main() {
+	int n;
+	cin >> n;
+	factorial(n);
+}
