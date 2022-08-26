@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+
+void tri(int a,int n) {
+	static int m = n;
+	if (a == n) {
+		cout << "*"<<endl;
+		if (a == 1);
+		else
+			tri(a - 1, m);
+	}
+	else {
+		cout << "*";
+		tri(a, n - 1);
+	}
+}
+	
+int main() {
+	int a;
+	cin >> a;
+	tri(a, a);
+}
