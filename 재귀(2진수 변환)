@@ -1,0 +1,14 @@
+#include<iostream>
+using namespace std;
+
+
+void jinsu(int a) {
+	if (a > 1)
+		jinsu(a / 2);
+	cout << a % 2;
+}
+int main() {
+	int a;
+	cin >> a;
+	jinsu(a);
+}
