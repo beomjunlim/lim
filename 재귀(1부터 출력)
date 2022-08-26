@@ -1,0 +1,21 @@
+//1부터 n까지 출력
+
+#include<iostream>
+using namespace std;
+
+int a = 1;
+int factorial(int n) {
+	if (a == n) {
+		cout << n << endl;
+		return 0;
+	}
+	else
+		cout << a << endl;
+	a++;
+	return factorial(n);
+}
+int main() {
+	int n;
+	cin >> n;
+	factorial(n);
+}
