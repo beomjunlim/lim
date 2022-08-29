@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+bool cmp(pair<int, pair<int, int>> a, pair<int, pair<int, int>> b)
+{
+  return a.second.first > b.second.first;
+}
+bool cmp1(pair<int, pair<int, int>> a, pair<int, pair<int, int>> b)
+{
+  return a.first < b.first;
+}
+int main()
+{
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  int n;
+  cin >> n;
+  vector<pair<int, pair<int, int>>> v(n); 
+  for (int i = 0; i < n; i++)
+  {
+    int a;
+    cin >> a;
+    v[i].second.first = a;
+    v[i].first = i; 
+  }
+  sort(v.begin(), v.end(), cmp); 
+  for (int i = 0; i < n; i++)
+    v[i].second.second = (i + 1);
+  for (int i = 0; i < n - 1; i++)
+  {
+    if (v[i].second.first == v[i + 1].second.first) 
+    {
+      int base = i; 
+      while (v[base].second.first == v[i + 1].second.first)// 동점자가 나올때마다 앞에 사람 등수로 맞춰줌
+      {
+        v[i + 1].second.second = v[base].second.second;
+        i++;
+      }
+    }
+  }
+
+  sort(v.begin(), v.end(), cmp1);
+  for (int i = 0; i < n; i++)
+  {
+    cout << v[i].second.first << " " << v[i].second.second << endl;
+  }
+}
