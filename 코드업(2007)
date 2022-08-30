@@ -1,0 +1,31 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  int n;
+  cin >> n;
+  vector<int> v;
+  for (int i = 0; i < n; i++)
+  {
+    int a;
+    cin >> a;
+    v.push_back(a);
+  }
+  vector<int> w = v;
+  vector<int> m = v;
+  sort(v.begin(), v.end());
+  sort(m.begin(), m.end(), greater<>());
+  if (w == v)
+    cout << "오름차순" <<'\n';
+
+  else if (w == m)
+    cout << "내림차순" <<'\n';
+  else
+    cout << "섞임" <<'\n';
+}
