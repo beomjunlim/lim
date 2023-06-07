@@ -1,0 +1,94 @@
+// 이름 나이 클래스 넘버를 입력하여 class3에 해당하는 사람들끼리 대화하는 프로그램
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <unistd.h>
+#include <sys/select.h>
+
+#define SERV_TCP_PORT 12350
+#define SERV_ADDR "165.246.38.152"
+
+void main(){
+   int x,y;
+   struct sockaddr_in serv_addr;
+   char buf[50];
+   printf("Hi, I am the client\n");
+   
+   bzero((char *)&serv_addr, sizeof(serv_addr));
+   serv_addr.sin_family=PF_INET;
+   serv_addr.sin_addr.s_addr=inet_addr(SERV_ADDR);
+   serv_addr.sin_port=htons(SERV_TCP_PORT);
+
+   //open a tcp socket
+   if ((x=socket(PF_INET, SOCK_STREAM, 0))<0){
+      printf("socket creation error\n");
+      exit(1);
+   }
+   printf("socket opened successfully. socket num is %d\n", x);
+
+   //connect to the server
+   if (connect(x, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0){
+      printf("can't connect to the server\n");
+      exit(1);
+   }
+   // now start ping-pong-pang-pung protocol
+   printf("enter hello\n");
+   fgets(buf,50,stdin); buf[strlen(buf)-1]=0;
+   write(x,buf, strlen(buf));
+   y=read(x,buf,50);
+   buf[y]=0;
+   write(1,buf,y);
+   printf("\n");
+
+   printf("enter name age class number\n");
+   fgets(buf,50,stdin); buf[strlen(buf)-1]=0;
+   write(x,buf,strlen(buf));
+   y=read(x,buf,50);
+   buf[y]=0;
+   write(1,buf,y);
+   printf("\n");
+   if(strcmp(buf,"no")==0){
+      close(x);
+      return;
+   } 
+
+   printf("enter yes\n");
+   fgets(buf,50,stdin); buf[strlen(buf)-1]=0;
+   write(x,buf,strlen(buf));
+   y=read(x,buf,100);
+   buf[y]=0;
+   write(1,buf,y);
+   printf("\n");
+
+   printf("enter your partner\n");
+   fgets(buf,50,stdin); buf[strlen(buf)-1]=0;
+   write(x,buf,strlen(buf));
+   y=read(x,buf,50);
+   buf[y]=0;
+   write(1,buf,y);
+   printf("\n");
+   
+   int k=fork();
+   int i;
+   if(k==0){
+        for(i=0; i<100; i++){
+             fgets(buf,50,stdin); buf[strlen(buf)-1]=0;
+             write(x,buf,strlen(buf));
+        }
+   }
+   else{
+        for(i=0; i<100; i++){
+             y=read(x,buf,50);
+             buf[y]=0;
+             write(1,buf,y);
+        }
+   }
+
+   close(x);  // disconect the communication
+}
